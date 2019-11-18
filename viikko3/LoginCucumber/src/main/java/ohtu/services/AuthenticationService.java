@@ -41,6 +41,24 @@ public class AuthenticationService {
     private boolean invalid(String username, String password) {
         // validity check of username and password
 
+        // username must be at least 3 characters long and contain only characters a-z
+        if (!username.matches("^[a-z]{3,}$")) {
+            return true;
+        }
+
+        // password must be at least 8 characters long and contain at least on non-letter character (a-z)
+        boolean nonLetter = false;
+
+        for (char c : password.toCharArray()) {
+            if (!Character.isLetter(c)) {
+                nonLetter = true;
+            }
+        }
+
+        if (password.length() < 8 || !nonLetter) {
+            return true;
+        }
+
         return false;
     }
 }
